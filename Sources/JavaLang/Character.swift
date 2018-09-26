@@ -38,6 +38,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      
 	// 
 	public let MIN_VALUE: AnsiChar = "\0"
+    
 	// *
 	//      * The constant value of this field is the largest value of type
 	//      * {@code char}, {@code '\u005CuFFFF'}.
@@ -45,16 +46,8 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @since   1.0.2
 	//      
 	// 
-	public let MAX_VALUE: AnsiChar = "\u{FFFF"
-	// *
-	//      * The {@code Class} instance representing the primitive type
-	//      * {@code char}.
-	//      *
-	//      * @since   1.1
-	//      
-	// 
-	@SuppressWarnings
-	public let TYPE: Class<Character!>! = (Class.getPrimitiveClass("char") as? Class<Character!>)
+	public let MAX_VALUE: AnsiChar = "" //"\u{FFFF"
+	
 	// 
 	//      * Normative general types
 	//      
@@ -377,7 +370,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @since 1.5
 	//      
 	// 
-	public let MIN_HIGH_SURROGATE: AnsiChar = "\u{D800"
+    public let MIN_HIGH_SURROGATE: AnsiChar = "" //"\u{D800"
 	// *
 	//      * The maximum value of a
 	//      * <a href="http://www.unicode.org/glossary/#high_surrogate_code_unit">
@@ -388,7 +381,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @since 1.5
 	//      
 	// 
-	public let MAX_HIGH_SURROGATE: AnsiChar = "\u{DBFF"
+	public let MAX_HIGH_SURROGATE: AnsiChar = "" //"\u{DBFF"
 	// *
 	//      * The minimum value of a
 	//      * <a href="http://www.unicode.org/glossary/#low_surrogate_code_unit">
@@ -399,7 +392,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @since 1.5
 	//      
 	// 
-	public let MIN_LOW_SURROGATE: AnsiChar = "\u{DC00"
+	public let MIN_LOW_SURROGATE: AnsiChar = "" //"\u{DC00"
 	// *
 	//      * The maximum value of a
 	//      * <a href="http://www.unicode.org/glossary/#low_surrogate_code_unit">
@@ -410,7 +403,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @since 1.5
 	//      
 	// 
-	public let MAX_LOW_SURROGATE: AnsiChar = "\u{DFFF"
+	public let MAX_LOW_SURROGATE: AnsiChar = "" //"\u{DFFF"
 	// *
 	//      * The minimum value of a Unicode surrogate code unit in the
 	//      * UTF-16 encoding, constant {@code '\u005CuD800'}.
@@ -454,7 +447,8 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      
 	// 
 	public let MAX_CODE_POINT: Int32 = 0x10FFFF
-	private let DIRECTIONALITY: Int8[] = ([DIRECTIONALITY_LEFT_TO_RIGHT, DIRECTIONALITY_RIGHT_TO_LEFT, DIRECTIONALITY_EUROPEAN_NUMBER, DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR, DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR, DIRECTIONALITY_ARABIC_NUMBER, DIRECTIONALITY_COMMON_NUMBER_SEPARATOR, DIRECTIONALITY_PARAGRAPH_SEPARATOR, DIRECTIONALITY_SEGMENT_SEPARATOR, DIRECTIONALITY_WHITESPACE, DIRECTIONALITY_OTHER_NEUTRALS, DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING, DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE, DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC, DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING, DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE, DIRECTIONALITY_POP_DIRECTIONAL_FORMAT, DIRECTIONALITY_NONSPACING_MARK, DIRECTIONALITY_BOUNDARY_NEUTRAL] as? Int8[])
+    
+	private let DIRECTIONALITY: [Int8] = ([DIRECTIONALITY_LEFT_TO_RIGHT, DIRECTIONALITY_RIGHT_TO_LEFT, DIRECTIONALITY_EUROPEAN_NUMBER, DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR, DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR, DIRECTIONALITY_ARABIC_NUMBER, DIRECTIONALITY_COMMON_NUMBER_SEPARATOR, DIRECTIONALITY_PARAGRAPH_SEPARATOR, DIRECTIONALITY_SEGMENT_SEPARATOR, DIRECTIONALITY_WHITESPACE, DIRECTIONALITY_OTHER_NEUTRALS, DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING, DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE, DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC, DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING, DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE, DIRECTIONALITY_POP_DIRECTIONAL_FORMAT, DIRECTIONALITY_NONSPACING_MARK, DIRECTIONALITY_BOUNDARY_NEUTRAL] as? Int8[])
 	// *
 	//      * The value of the {@code Character}.
 	//      *
@@ -571,7 +565,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      *
 	//      * @return  a string representation of this object.
 	open func toString() -> String! {
-		var buf: AnsiChar[] = [value]
+		var buf: [AnsiChar] = [value]
 		return String.valueOf(buf)
 	}
 
@@ -817,7 +811,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * {@code index} is negative or not less than
 	//      * the length of the {@code char} array.
 	//      * @since  1.5
-	public static func codePointAt(_ a: AnsiChar[], _ index: Int32) -> Int32 {
+	public static func codePointAt(_ a: [AnsiChar], _ index: Int32) -> Int32 {
 		return codePointAtImpl(a, index, a.length)
 	}
 
@@ -845,7 +839,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * argument, or if the {@code limit} argument is negative or
 	//      * greater than the length of the {@code char} array.
 	//      * @since  1.5
-	public static func codePointAt(_ a: AnsiChar[], _ index: Int32, _ limit: Int32) -> Int32 {
+	public static func codePointAt(_ a: [AnsiChar], _ index: Int32, _ limit: Int32) -> Int32 {
 		if (index >= limit) | (limit < 0) | (limit > a.length) {
 			throw IndexOutOfBoundsException()
 		}
@@ -853,7 +847,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	}
 
 	// throws ArrayIndexOutOfBoundsException if index out of bounds
-	internal static func codePointAtImpl(_ a: AnsiChar[], _ index: Int32, _ limit: Int32) -> Int32 {
+	internal static func codePointAtImpl(_ a: [AnsiChar], _ index: Int32, _ limit: Int32) -> Int32 {
 		var c1: AnsiChar = a[index]
 		if isHighSurrogate(c1) & (inc(index) < limit) {
 			var c2: AnsiChar = a[index]
@@ -915,7 +909,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * argument is less than 1 or greater than the length of the
 	//      * {@code char} array
 	//      * @since  1.5
-	public static func codePointBefore(_ a: AnsiChar[], _ index: Int32) -> Int32 {
+	public static func codePointBefore(_ a: [AnsiChar], _ index: Int32) -> Int32 {
 		return codePointBeforeImpl(a, index, 0)
 	}
 
@@ -945,7 +939,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * if the {@code start} argument is negative or not less than
 	//      * the length of the {@code char} array.
 	//      * @since  1.5
-	public static func codePointBefore(_ a: AnsiChar[], _ index: Int32, _ start: Int32) -> Int32 {
+	public static func codePointBefore(_ a: [AnsiChar], _ index: Int32, _ start: Int32) -> Int32 {
 		if (index <= start) | (start < 0) | (start >= a.length) {
 			throw IndexOutOfBoundsException()
 		}
@@ -953,7 +947,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	}
 
 	// throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-	internal static func codePointBeforeImpl(_ a: AnsiChar[], _ index: Int32, _ start: Int32) -> Int32 {
+	internal static func codePointBeforeImpl(_ a: [AnsiChar], _ index: Int32, _ start: Int32) -> Int32 {
 		var c2: AnsiChar = a[dec(index)]
 		if isLowSurrogate(c2) & (index > start) {
 			var c1: AnsiChar = a[dec(index)]
@@ -1048,7 +1042,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * high-surrogate value is not stored in
 	//      * {@code dst[dstIndex]}.)
 	//      * @since  1.5
-	public static func toChars(_ codePoint: Int32, _ dst: AnsiChar[], _ dstIndex: Int32) -> Int32 {
+	public static func toChars(_ codePoint: Int32, _ dst: [AnsiChar], _ dstIndex: Int32) -> Int32 {
 		if isBmpCodePoint(codePoint) {
 			dst[dstIndex] = (codePoint as? AnsiChar)
 			return 1
@@ -1077,12 +1071,12 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * @exception IllegalArgumentException if the specified
 	//      * {@code codePoint} is not a valid Unicode code point.
 	//      * @since  1.5
-	public static func toChars(_ codePoint: Int32) -> AnsiChar[] {
+	public static func toChars(_ codePoint: Int32) -> [AnsiChar] {
 		if isBmpCodePoint(codePoint) {
-			return ([(codePoint as? AnsiChar)] as? AnsiChar[])
+			return ([(codePoint as? AnsiChar)] as? [AnsiChar])
 		} else {
 			if isValidCodePoint(codePoint) {
-				var result: AnsiChar[] = AnsiChar[](count: 2)
+				var result: [AnsiChar] = [AnsiChar](count: 2)
 				toSurrogates(codePoint, result, 0)
 				return result
 			} else {
@@ -1091,7 +1085,7 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 		}
 	}
 
-	internal static func toSurrogates(_ codePoint: Int32, _ dst: AnsiChar[], _ index: Int32) {
+	internal static func toSurrogates(_ codePoint: Int32, _ dst: [AnsiChar], _ index: Int32) {
 		//  We write elements "backwards" to guarantee all-or-nothing
 		dst[index + 1] = lowSurrogate(codePoint)
 		dst[index] = highSurrogate(codePoint)
@@ -1152,14 +1146,14 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      * {@code count} is negative, or if {@code offset +
 	//      * count} is larger than the length of the given array.
 	//      * @since  1.5
-	public static func codePointCount(_ a: AnsiChar[], _ offset: Int32, _ count: Int32) -> Int32 {
+	public static func codePointCount(_ a: [AnsiChar], _ offset: Int32, _ count: Int32) -> Int32 {
 		if (count > (a.length - offset)) | (offset < 0) | (count < 0) {
 			throw IndexOutOfBoundsException()
 		}
 		return codePointCountImpl(a, offset, count)
 	}
 
-	internal static func codePointCountImpl(_ a: AnsiChar[], _ offset: Int32, _ count: Int32) -> Int32 {
+	internal static func codePointCountImpl(_ a: [AnsiChar], _ offset: Int32, _ count: Int32) -> Int32 {
 		var endIndex: Int32 = offset + count
 		var n: Int32 = count
 		var i: Int32 = offset
@@ -1254,14 +1248,14 @@ public final class Character : java.io.Serializable, Comparable<Character!> {
 	//      *   has fewer than the absolute value of
 	//      *   {@code codePointOffset} code points.
 	//      * @since 1.5
-	public static func offsetByCodePoints(_ a: AnsiChar[], _ start: Int32, _ count: Int32, _ index: Int32, _ codePointOffset: Int32) -> Int32 {
+	public static func offsetByCodePoints(_ a: [AnsiChar], _ start: Int32, _ count: Int32, _ index: Int32, _ codePointOffset: Int32) -> Int32 {
 		if (count > (a.length - start)) | (start < 0) | (count < 0) | (index < start) | (index > (start + count)) {
 			throw IndexOutOfBoundsException()
 		}
 		return offsetByCodePointsImpl(a, start, count, index, codePointOffset)
 	}
 
-	internal static func offsetByCodePointsImpl(_ a: AnsiChar[], _ start: Int32, _ count: Int32, _ index: Int32, _ codePointOffset: Int32) -> Int32 {
+	internal static func offsetByCodePointsImpl(_ a: [AnsiChar], _ start: Int32, _ count: Int32, _ index: Int32, _ codePointOffset: Int32) -> Int32 {
 		var x: Int32 = index
 		if codePointOffset >= 0 {
 			var limit: Int32 = start + count

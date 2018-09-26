@@ -1,6 +1,7 @@
 
 
-open class Throwable : Serializable { 
+open class Throwable : Swift.Error {
+    
 	// * use serialVersionUID from JDK 1.0.2 for interoperability 
 	// 
 	private let serialVersionUID: Int64 = -3042686055658047285
@@ -54,7 +55,7 @@ open class Throwable : Serializable {
 	//      * @since 1.4
 	//      
 	// 
-	private var cause: Throwable! = self
+	private var cause: Throwable? = nil
 	// *
 	//      * The stack trace, as returned by {@link #getStackTrace()}.
 	//      *
@@ -592,11 +593,12 @@ open class Throwable : Serializable {
 	//      * @return an array of stack trace elements representing the stack trace
 	//      *         pertaining to this throwable.
 	//      * @since  1.4
-	open func getStackTrace() -> StackTraceElement![] {
+	open func getStackTrace() -> [StackTraceElement] {
+        
 		return getOurStackTrace().clone()
 	}
 
-	private func getOurStackTrace() -> StackTraceElement![] {
+	private func getOurStackTrace() -> [StackTraceElement] {
 		//  Initialize stack trace field with information from
 		//  backtrace if this is the first call to this method
 		// 
@@ -609,7 +611,7 @@ open class Throwable : Serializable {
 		//  Android-changed: Return an empty element both when the stack trace
 		//  isn't writeable and also when nativeGetStackTrace returns null.
 		if stackTrace == nil {
-			return libcore.util.EmptyArray.STACK_TRACE_ELEMENT
+			return []
 		}
 		return stackTrace
 	}
@@ -641,7 +643,7 @@ open class Throwable : Serializable {
 	//      *         {@code stackTrace} are {@code null}
 	//      *
 	//      * @since  1.4
-	open func setStackTrace(_ stackTrace: StackTraceElement![]) {
+	open func setStackTrace(_ stackTrace: [StackTraceElement]) {
 		//  Validate argument
 		var defensiveCopy: StackTraceElement![] = stackTrace.clone()
 		for i in 0 ... defensiveCopy.length - 1 {
@@ -659,8 +661,11 @@ open class Throwable : Serializable {
 	//      * @param index index of the element to return.
 	//      * @throws IndexOutOfBoundsException if {@code index < 0 ||
 	//      *         index >= getStackTraceDepth() }
-	@FastNative
-	private static __extern func nativeGetStackTrace(_ stackState: Object!) -> StackTraceElement![]
+	//@FastNative
+    private static /* __extern */ func nativeGetStackTrace(_ stackState: Object!) -> [StackTraceElement] {
+        
+        
+    }
 
 	// *
 	//      * Reads a {@code Throwable} from a stream, enforcing
@@ -730,7 +735,7 @@ open class Throwable : Serializable {
 			//  from an exception serialized without that field in
 			//  older JDK releases; treat such exceptions as having
 			//  empty stack traces.
-			stackTrace = StackTraceElement[](count: 0)
+			stackTrace = []
 		}
 	}
 
@@ -740,13 +745,15 @@ open class Throwable : Serializable {
 	//      * A {@code null} stack trace field is represented in the serial
 	//      * form as a one-element array whose element is equal to {@code
 	//      * new StackTraceElement("", "", null, Integer.MIN_VALUE)}.
-	private func writeObject(_ s: ObjectOutputStream!) {
+	private func writeObject(_ s: ObjectOutputStream) {
+
 		//  Ensure that the stackTrace field is initialized to a
 		//  non-null value, if appropriate.  As of JDK 7, a null stack
 		//  trace field is a valid value indicating the stack trace
 		//  should not be set.
+        /*
 		getOurStackTrace()
-		var oldStackTrace: StackTraceElement![] = stackTrace
+		var oldStackTrace: [StackTraceElement] = stackTrace
 		__try {
 			if stackTrace == nil {
 				stackTrace = SentinelHolder.STACK_TRACE_SENTINEL
@@ -755,7 +762,7 @@ open class Throwable : Serializable {
 		}
 		__finally {
 			stackTrace = oldStackTrace
-		}
+		}*
 	}
 
 	// *

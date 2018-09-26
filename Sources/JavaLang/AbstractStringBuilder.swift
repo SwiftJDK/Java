@@ -29,7 +29,7 @@ internal /* __abstract */ class AbstractStringBuilder : Appendable, CharSequence
 	// *
 	//      * Creates an AbstractStringBuilder of the specified capacity.
 	internal init(_ capacity: Int32) {
-		value = AnsiChar[](count: capacity)
+		value = [AnsiChar](count: capacity)
 	}
 
 	// *

@@ -108,7 +108,7 @@ public final class Long : Number, Comparable<Long> {
 		if radix == 10 {
 			return toString(i)
 		}
-        var buf: [AnsiChar] = AnsiChar[](count: 65)
+        var buf: [AnsiChar] = [AnsiChar](count: 65)
 		var charPos: Int32 = 64
 		var negative: Bool = i < 0
 		if !negative {
@@ -366,7 +366,7 @@ public final class Long : Number, Comparable<Long> {
 			return "-9223372036854775808"
 		}
 		var size: Int32 = (i < 0 ? stringSize(-i) + 1 : stringSize(i))
-        var buf: [AnsiChar] = AnsiChar[](count: size)
+        var buf: [AnsiChar] = [AnsiChar](count: size)
 		getChars(i, size, buf)
 		//  Android-changed: Use regular constructor instead of one which takes over "buf".
 		//  return new String(buf, true);
@@ -398,7 +398,7 @@ public final class Long : Number, Comparable<Long> {
 	//      * backwards from there.
 	//      *
 	//      * Will fail if i == Long.MIN_VALUE
-	internal static func getChars(_ i: Int64, _ index: Int32, _ buf: AnsiChar[]) {
+	internal static func getChars(_ i: Int64, _ index: Int32, _ buf: [AnsiChar]) {
 		var q: Int64
 		var r: Int32
 		var charPos: Int32 = index

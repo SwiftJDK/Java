@@ -1,4 +1,5 @@
-open class AbstractMethodError : IncompatibleClassChangeError { 
+open class AbstractMethodError : IncompatibleClassChangeError {
+    
 	private let serialVersionUID: Int64 = -1654391082989018462
 
 	// *

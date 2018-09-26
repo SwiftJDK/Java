@@ -94,7 +94,7 @@ public final class Double : Number, Comparable {
 	//      * @since JDK1.1
 	//      
 	// 
-	@SuppressWarnings
+    // @SuppressWarnings
 	public let TYPE: Class<Double!>! = (Class.getPrimitiveClass("double") as? Class<Double!>)
 	// *
 	//      * The value of the Double.

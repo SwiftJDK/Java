@@ -1,5 +1,6 @@
 
-open class Exception : Throwable { 
+open class Exception : Throwable {
+    
 	internal let serialVersionUID: Int64 = -3387516993124229948
 
 	// *

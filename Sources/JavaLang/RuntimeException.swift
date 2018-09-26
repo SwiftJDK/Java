@@ -15,7 +15,7 @@ open class RuntimeException : Exception {
 	//      *
 	//      * @param   message   the detail message. The detail message is saved for
 	//      *          later retrieval by the {@link #getMessage()} method.
-	public init(_ message: String!) {
+	public init(_ message: String) {
 		super.init(message)
 	}
 
@@ -32,7 +32,7 @@ open class RuntimeException : Exception {
 	//      *         permitted, and indicates that the cause is nonexistent or
 	//      *         unknown.)
 	//      * @since  1.4
-	public init(_ message: String!, _ cause: Throwable!) {
+	public init(_ message: String, _ cause: Throwable) {
 		super.init(message, cause)
 	}
 
@@ -47,7 +47,7 @@ open class RuntimeException : Exception {
 	//      *         permitted, and indicates that the cause is nonexistent or
 	//      *         unknown.)
 	//      * @since  1.4
-	public init(_ cause: Throwable!) {
+	public init(_ cause: Throwable) {
 		super.init(cause)
 	}
 
@@ -65,7 +65,7 @@ open class RuntimeException : Exception {
 	//      *                           be writable
 	//      *
 	//      * @since 1.7
-	public init(_ message: String!, _ cause: Throwable!, _ enableSuppression: Bool, _ writableStackTrace: Bool) {
+	public init(_ message: String, _ cause: Throwable, _ enableSuppression: Bool, _ writableStackTrace: Bool) {
 		super.init(message, cause, enableSuppression, writableStackTrace)
 	}
 }

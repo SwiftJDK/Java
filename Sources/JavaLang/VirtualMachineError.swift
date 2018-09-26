@@ -1,5 +1,6 @@
 
-open /* __abstract */ class VirtualMachineError : Error { 
+open /* __abstract */ class VirtualMachineError : JavaLang.Error {
+    
 	private let serialVersionUID: Int64 = 4161983926571568670
 
 	// *

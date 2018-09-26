@@ -7,7 +7,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	//      * whenever the StringBuffer is modified.
 	//      
 	// 
-	private var toStringCache: AnsiChar[]
+	private var toStringCache: [AnsiChar]
 	// * use serialVersionUID from JDK 1.0.2 for interoperability 
 	// 
 	internal let serialVersionUID: Int64 = 3388685877147921107
@@ -23,7 +23,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	//      *              The value is ignored upon deserialization.
 	//      
 	// 
-	private let serialPersistentFields: java.io.ObjectStreamField![] = [java.io.ObjectStreamField("value", AnsiChar[].self), java.io.ObjectStreamField("count", Integer.TYPE), java.io.ObjectStreamField("shared", Boolean.TYPE)]
+	private let serialPersistentFields: java.io.ObjectStreamField![] = [java.io.ObjectStreamField("value", [AnsiChar].self), java.io.ObjectStreamField("count", Integer.TYPE), java.io.ObjectStreamField("shared", Boolean.TYPE)]
 
 	// *
 	//      * Constructs a string buffer with no characters in it and an
@@ -144,7 +144,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	// *
 	//      * @throws IndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func getChars(_ srcBegin: Int32, _ srcEnd: Int32, _ dst: AnsiChar[], _ dstBegin: Int32) {
+	public func getChars(_ srcBegin: Int32, _ srcEnd: Int32, _ dst: [AnsiChar], _ dstBegin: Int32) {
 		super.getChars(srcBegin, srcEnd, dst, dstBegin)
 	}
 
@@ -250,7 +250,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	}
 
 	// @Override
-	public func append(_ str: AnsiChar[]) -> StringBuffer! {
+	public func append(_ str: [AnsiChar]) -> StringBuffer! {
 		toStringCache = nil
 		super.append(str)
 		return self
@@ -259,7 +259,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	// *
 	//      * @throws IndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func append(_ str: AnsiChar[], _ offset: Int32, _ len: Int32) -> StringBuffer! {
+	public func append(_ str: [AnsiChar], _ offset: Int32, _ len: Int32) -> StringBuffer! {
 		toStringCache = nil
 		super.append(str, offset, len)
 		return self
@@ -374,7 +374,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	//      * @throws StringIndexOutOfBoundsException {@inheritDoc}
 	//      * @since      1.2
 	// @Override
-	public func insert(_ index: Int32, _ str: AnsiChar[], _ offset: Int32, _ len: Int32) -> StringBuffer! {
+	public func insert(_ index: Int32, _ str: [AnsiChar], _ offset: Int32, _ len: Int32) -> StringBuffer! {
 		toStringCache = nil
 		super.insert(index, str, offset, len)
 		return self
@@ -401,7 +401,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	// *
 	//      * @throws StringIndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func insert(_ offset: Int32, _ str: AnsiChar[]) -> StringBuffer! {
+	public func insert(_ offset: Int32, _ str: [AnsiChar]) -> StringBuffer! {
 		toStringCache = nil
 		super.insert(offset, str)
 		return self
@@ -556,7 +556,7 @@ public final class StringBuffer : AbstractStringBuilder, java.io.Serializable, C
 	//      * a stream.
 	private func readObject(_ s: java.io.ObjectInputStream!) {
 		var fields: java.io.ObjectInputStream.GetField! = s.readFields()
-		value = (fields.`get`("value", nil) as? AnsiChar[])
+		value = (fields.`get`("value", nil) as? [AnsiChar])
 		count = fields.`get`("count", 0)
 	}
 }

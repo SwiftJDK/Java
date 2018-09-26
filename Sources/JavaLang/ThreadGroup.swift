@@ -513,7 +513,7 @@ open class ThreadGroup : Thread.UncaughtExceptionHandler {
 	//      * @deprecated    This method is inherently deadlock-prone.  See
 	//      *     {@link Thread#suspend} for details.
 	@Deprecated
-	@SuppressWarnings("deprecation")
+    // @SuppressWarnings("deprecation")
 	public func suspend() {
 		if stopOrSuspend(true) {
 			Thread.currentThread().suspend()
@@ -526,7 +526,7 @@ open class ThreadGroup : Thread.UncaughtExceptionHandler {
 	//      * subgroups, except the current thread.  This method returns true
 	//      * if (and only if) the current thread is found to be in this thread
 	//      * group or one of its subgroups.
-	@SuppressWarnings("deprecation")
+    // @SuppressWarnings("deprecation")
 	private func stopOrSuspend(_ suspend: Bool) -> Bool {
 		var suicide: Bool = false
 		var us: Thread! = Thread.currentThread()
@@ -559,7 +559,7 @@ open class ThreadGroup : Thread.UncaughtExceptionHandler {
 	//      *       both of which have been deprecated, as they are inherently
 	//      *       deadlock-prone.  See {@link Thread#suspend} for details.
 	@Deprecated
-	@SuppressWarnings("deprecation")
+    // @SuppressWarnings("deprecation")
 	public func resume() {
 		var ngroupsSnapshot: Int32
 		var groupsSnapshot: ThreadGroup![]

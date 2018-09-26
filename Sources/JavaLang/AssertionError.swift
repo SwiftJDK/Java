@@ -1,5 +1,5 @@
 
-open class AssertionError : Error { 
+open class AssertionError : JavaLang.Error { 
 	private let serialVersionUID: Int64 = -5013299493970297370
 
 	// *

@@ -464,8 +464,8 @@ public final class System {
 	//      * The char[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
-	private static func arraycopy(_ src: AnsiChar[], _ srcPos: Int32, _ dst: AnsiChar[], _ dstPos: Int32, _ length: Int32) {
+    // @SuppressWarnings("unused")
+	private static func arraycopy(_ src: [AnsiChar], _ srcPos: Int32, _ dst: [AnsiChar], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
 		}
@@ -498,7 +498,7 @@ public final class System {
 	//      * The char[] specialized, unchecked, native version of
 	//      * arraycopy(). This assumes error checking has been done.
 	@FastNative
-	private static __extern func arraycopyCharUnchecked(_ src: AnsiChar[], _ srcPos: Int32, _ dst: AnsiChar[], _ dstPos: Int32, _ length: Int32)
+	private static __extern func arraycopyCharUnchecked(_ src: [AnsiChar], _ srcPos: Int32, _ dst: [AnsiChar], _ dstPos: Int32, _ length: Int32)
 
 	// *
 	//      * The byte[] specialized version of arraycopy().
@@ -508,7 +508,7 @@ public final class System {
 	//      * are working on removing. b/74103559
 	//      *
 	//      * @hide
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	public static func arraycopy(_ src: Int8[], _ srcPos: Int32, _ dst: Int8[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -548,7 +548,7 @@ public final class System {
 	//      * The short[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Int16[], _ srcPos: Int32, _ dst: Int16[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -588,7 +588,7 @@ public final class System {
 	//      * The int[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Int32[], _ srcPos: Int32, _ dst: Int32[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -628,7 +628,7 @@ public final class System {
 	//      * The long[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Int64[], _ srcPos: Int32, _ dst: Int64[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -668,7 +668,7 @@ public final class System {
 	//      * The float[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Float32[], _ srcPos: Int32, _ dst: Float32[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -708,7 +708,7 @@ public final class System {
 	//      * The double[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Float64[], _ srcPos: Int32, _ dst: Float64[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")
@@ -748,7 +748,7 @@ public final class System {
 	//      * The boolean[] specialized version of arraycopy().
 	//      * Note: This method is required for runtime ART compiler optimizations.
 	//      * Do not remove or change the signature.
-	@SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
 	private static func arraycopy(_ src: Bool[], _ srcPos: Int32, _ dst: Bool[], _ dstPos: Int32, _ length: Int32) {
 		if src == nil {
 			throw NullPointerException("src == null")

@@ -94,7 +94,7 @@ public final class StringBuilder : AbstractStringBuilder, java.io.Serializable, 
 	}
 
 	// @Override
-	public func append(_ str: AnsiChar[]) -> StringBuilder! {
+	public func append(_ str: [AnsiChar]) -> StringBuilder! {
 		super.append(str)
 		return self
 	}
@@ -102,7 +102,7 @@ public final class StringBuilder : AbstractStringBuilder, java.io.Serializable, 
 	// *
 	//      * @throws IndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func append(_ str: AnsiChar[], _ offset: Int32, _ len: Int32) -> StringBuilder! {
+	public func append(_ str: [AnsiChar], _ offset: Int32, _ len: Int32) -> StringBuilder! {
 		super.append(str, offset, len)
 		return self
 	}
@@ -178,7 +178,7 @@ public final class StringBuilder : AbstractStringBuilder, java.io.Serializable, 
 	// *
 	//      * @throws StringIndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func insert(_ index: Int32, _ str: AnsiChar[], _ offset: Int32, _ len: Int32) -> StringBuilder! {
+	public func insert(_ index: Int32, _ str: [AnsiChar], _ offset: Int32, _ len: Int32) -> StringBuilder! {
 		super.insert(index, str, offset, len)
 		return self
 	}
@@ -202,7 +202,7 @@ public final class StringBuilder : AbstractStringBuilder, java.io.Serializable, 
 	// *
 	//      * @throws StringIndexOutOfBoundsException {@inheritDoc}
 	// @Override
-	public func insert(_ offset: Int32, _ str: AnsiChar[]) -> StringBuilder! {
+	public func insert(_ offset: Int32, _ str: [AnsiChar]) -> StringBuilder! {
 		super.insert(offset, str)
 		return self
 	}
@@ -330,7 +330,7 @@ public final class StringBuilder : AbstractStringBuilder, java.io.Serializable, 
 	private func readObject(_ s: java.io.ObjectInputStream!) {
 		s.defaultReadObject()
 		count = s.readInt()
-		value = (s.readObject() as? AnsiChar[])
+		value = (s.readObject() as? [AnsiChar])
 	}
 }
 
