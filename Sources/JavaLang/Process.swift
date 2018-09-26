@@ -1,188 +1,150 @@
-  
 
-// import java.util.concurrent
 
-open /* __abstract */ class Process { 
-	// *
-	//      * Returns the output stream connected to the normal input of the
-	//      * subprocess.  Output to the stream is piped into the standard
-	//      * input of the process represented by this {@code Process} object.
-	//      *
-	//      * <p>If the standard input of the subprocess has been redirected using
-	//      * {@link ProcessBuilder#redirectInput(Redirect)
-	//      * ProcessBuilder.redirectInput}
-	//      * then this method will return a
-	//      * <a href="ProcessBuilder.html#redirect-input">null output stream</a>.
-	//      *
-	//      * <p>Implementation note: It is a good idea for the returned
-	//      * output stream to be buffered.
-	//      *
-	//      * @return the output stream connected to the normal input of the
-	//      *         subprocess
-	open override func getOutputStream() -> OutputStream! {
-	}
 
-	// *
-	//      * Returns the input stream connected to the normal output of the
-	//      * subprocess.  The stream obtains data piped from the standard
-	//      * output of the process represented by this {@code Process} object.
-	//      *
-	//      * <p>If the standard output of the subprocess has been redirected using
-	//      * {@link ProcessBuilder#redirectOutput(Redirect)
-	//      * ProcessBuilder.redirectOutput}
-	//      * then this method will return a
-	//      * <a href="ProcessBuilder.html#redirect-output">null input stream</a>.
-	//      *
-	//      * <p>Otherwise, if the standard error of the subprocess has been
-	//      * redirected using
-	//      * {@link ProcessBuilder#redirectErrorStream(boolean)
-	//      * ProcessBuilder.redirectErrorStream}
-	//      * then the input stream returned by this method will receive the
-	//      * merged standard output and the standard error of the subprocess.
-	//      *
-	//      * <p>Implementation note: It is a good idea for the returned
-	//      * input stream to be buffered.
-	//      *
-	//      * @return the input stream connected to the normal output of the
-	//      *         subprocess
-	open override func getInputStream() -> InputStream! {
-	}
 
-	// *
-	//      * Returns the input stream connected to the error output of the
-	//      * subprocess.  The stream obtains data piped from the error output
-	//      * of the process represented by this {@code Process} object.
-	//      *
-	//      * <p>If the standard error of the subprocess has been redirected using
-	//      * {@link ProcessBuilder#redirectError(Redirect)
-	//      * ProcessBuilder.redirectError} or
-	//      * {@link ProcessBuilder#redirectErrorStream(boolean)
-	//      * ProcessBuilder.redirectErrorStream}
-	//      * then this method will return a
-	//      * <a href="ProcessBuilder.html#redirect-output">null input stream</a>.
-	//      *
-	//      * <p>Implementation note: It is a good idea for the returned
-	//      * input stream to be buffered.
-	//      *
-	//      * @return the input stream connected to the error output of
-	//      *         the subprocess
-	open override func getErrorStream() -> InputStream! {
-	}
+/// class java.lang.Process ///
 
-	// *
-	//      * Causes the current thread to wait, if necessary, until the
-	//      * process represented by this {@code Process} object has
-	//      * terminated.  This method returns immediately if the subprocess
-	//      * has already terminated.  If the subprocess has not yet
-	//      * terminated, the calling thread will be blocked until the
-	//      * subprocess exits.
-	//      *
-	//      * @return the exit value of the subprocess represented by this
-	//      *         {@code Process} object.  By convention, the value
-	//      *         {@code 0} indicates normal termination.
-	//      * @throws InterruptedException if the current thread is
-	//      *         {@linkplain Thread#interrupt() interrupted} by another
-	//      *         thread while it is waiting, then the wait is ended and
-	//      *         an {@link InterruptedException} is thrown.
-	open override func waitFor() -> Int32 {
-	}
+open class Process: java_swift.JavaObject {
 
-	// *
-	//      * Causes the current thread to wait, if necessary, until the
-	//      * subprocess represented by this {@code Process} object has
-	//      * terminated, or the specified waiting time elapses.
-	//      *
-	//      * <p>If the subprocess has already terminated then this method returns
-	//      * immediately with the value {@code true}.  If the process has not
-	//      * terminated and the timeout value is less than, or equal to, zero, then
-	//      * this method returns immediately with the value {@code false}.
-	//      *
-	//      * <p>The default implementation of this methods polls the {@code exitValue}
-	//      * to check if the process has terminated. Concrete implementations of this
-	//      * class are strongly encouraged to override this method with a more
-	//      * efficient implementation.
-	//      *
-	//      * @param timeout the maximum time to wait
-	//      * @param unit the time unit of the {@code timeout} argument
-	//      * @return {@code true} if the subprocess has exited and {@code false} if
-	//      *         the waiting time elapsed before the subprocess has exited.
-	//      * @throws InterruptedException if the current thread is interrupted
-	//      *         while waiting.
-	//      * @throws NullPointerException if unit is null
-	//      * @since 1.8
-	open func waitFor(_ timeout: Int64, _ unit: TimeUnit!) -> Bool {
-		var startTime: Int64 = System.nanoTime()
-		var rem: Int64 = unit.toNanos(timeout)
-		repeat {__try {
-				exitValue()
-				return true
-			}
-			__catch ex: IllegalThreadStateException {
-				if rem > 0 {
-					Thread.sleep(Math.min(TimeUnit.NANOSECONDS.toMillis(rem) + 1, 100))
-				}
-			}
-			rem = unit.toNanos(timeout) - System.nanoTime() - startTime
-		} while rem > 0return false
-	}
+    
 
-	// *
-	//      * Returns the exit value for the subprocess.
-	//      *
-	//      * @return the exit value of the subprocess represented by this
-	//      *         {@code Process} object.  By convention, the value
-	//      *         {@code 0} indicates normal termination.
-	//      * @throws IllegalThreadStateException if the subprocess represented
-	//      *         by this {@code Process} object has not yet terminated
-	open override func exitValue() -> Int32 {
-	}
+    private static var ProcessJNIClass: jclass?
 
-	// *
-	//      * Kills the subprocess. Whether the subprocess represented by this
-	//      * {@code Process} object is forcibly terminated or not is
-	//      * implementation dependent.
-	open override func destroy() {
-	}
+    /// public java.lang.Process()
 
-	// *
-	//      * Kills the subprocess. The subprocess represented by this
-	//      * {@code Process} object is forcibly terminated.
-	//      *
-	//      * <p>The default implementation of this method invokes {@link #destroy}
-	//      * and so may not forcibly terminate the process. Concrete implementations
-	//      * of this class are strongly encouraged to override this method with a
-	//      * compliant implementation.  Invoking this method on {@code Process}
-	//      * objects returned by {@link ProcessBuilder#start} and
-	//      * {@link Runtime#exec} will forcibly terminate the process.
-	//      *
-	//      * <p>Note: The subprocess may not terminate immediately.
-	//      * i.e. {@code isAlive()} may return true for a brief period
-	//      * after {@code destroyForcibly()} is called. This method
-	//      * may be chained to {@code waitFor()} if needed.
-	//      *
-	//      * @return the {@code Process} object representing the
-	//      *         subprocess to be forcibly destroyed.
-	//      * @since 1.8
-	open func destroyForcibly() -> Process! {
-		destroy()
-		return self
-	}
+    private static var new_MethodID_1: jmethodID?
 
-	// *
-	//      * Tests whether the subprocess represented by this {@code Process} is
-	//      * alive.
-	//      *
-	//      * @return {@code true} if the subprocess represented by this
-	//      *         {@code Process} object has not yet terminated.
-	//      * @since 1.8
-	open func isAlive() -> Bool {
-		__try {
-			exitValue()
-			return false
-		}
-		__catch e: IllegalThreadStateException {
-			return true
-		}
-	}
+    public convenience init() {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __object = JNIMethod.NewObject( className: "java/lang/Process", classCache: &Process.ProcessJNIClass, methodSig: "()V", methodCache: &Process.new_MethodID_1, args: &__args, locals: &__locals )
+        self.init( javaObject: __object )
+        JNI.DeleteLocalRef( __object )
+    }
+
+    /// public abstract void java.lang.Process.destroy()
+
+    private static var destroy_MethodID_2: jmethodID?
+
+    open func destroy() {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        JNIMethod.CallVoidMethod( object: javaObject, methodName: "destroy", methodSig: "()V", methodCache: &Process.destroy_MethodID_2, args: &__args, locals: &__locals )
+    }
+
+
+    /// public java.lang.Process java.lang.Process.destroyForcibly()
+
+    private static var destroyForcibly_MethodID_3: jmethodID?
+
+    open func destroyForcibly() -> Process! {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallObjectMethod( object: javaObject, methodName: "destroyForcibly", methodSig: "()Ljava/lang/Process;", methodCache: &Process.destroyForcibly_MethodID_3, args: &__args, locals: &__locals )
+        defer { JNI.DeleteLocalRef( __return ) }
+        return __return != nil ? Process( javaObject: __return ) : nil
+    }
+
+
+    /// public abstract int java.lang.Process.exitValue()
+
+    private static var exitValue_MethodID_4: jmethodID?
+
+    open func exitValue() -> Int {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallIntMethod( object: javaObject, methodName: "exitValue", methodSig: "()I", methodCache: &Process.exitValue_MethodID_4, args: &__args, locals: &__locals )
+        return Int(__return)
+    }
+
+
+    /// public abstract java.io.InputStream java.lang.Process.getErrorStream()
+
+    private static var getErrorStream_MethodID_5: jmethodID?
+
+    open func getErrorStream() -> /* class java.io.InputStream */ UnavailableObject! {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallObjectMethod( object: javaObject, methodName: "getErrorStream", methodSig: "()Ljava/io/InputStream;", methodCache: &Process.getErrorStream_MethodID_5, args: &__args, locals: &__locals )
+        defer { JNI.DeleteLocalRef( __return ) }
+        return __return != nil ? /* class java.io.InputStream */ UnavailableObject( javaObject: __return ) : nil
+    }
+
+
+    /// public abstract java.io.InputStream java.lang.Process.getInputStream()
+
+    private static var getInputStream_MethodID_6: jmethodID?
+
+    open func getInputStream() -> /* class java.io.InputStream */ UnavailableObject! {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallObjectMethod( object: javaObject, methodName: "getInputStream", methodSig: "()Ljava/io/InputStream;", methodCache: &Process.getInputStream_MethodID_6, args: &__args, locals: &__locals )
+        defer { JNI.DeleteLocalRef( __return ) }
+        return __return != nil ? /* class java.io.InputStream */ UnavailableObject( javaObject: __return ) : nil
+    }
+
+
+    /// public abstract java.io.OutputStream java.lang.Process.getOutputStream()
+
+    private static var getOutputStream_MethodID_7: jmethodID?
+
+    open func getOutputStream() -> /* class java.io.OutputStream */ UnavailableObject! {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallObjectMethod( object: javaObject, methodName: "getOutputStream", methodSig: "()Ljava/io/OutputStream;", methodCache: &Process.getOutputStream_MethodID_7, args: &__args, locals: &__locals )
+        defer { JNI.DeleteLocalRef( __return ) }
+        return __return != nil ? /* class java.io.OutputStream */ UnavailableObject( javaObject: __return ) : nil
+    }
+
+
+    /// public boolean java.lang.Process.isAlive()
+
+    private static var isAlive_MethodID_8: jmethodID?
+
+    open func isAlive() -> Bool {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallBooleanMethod( object: javaObject, methodName: "isAlive", methodSig: "()Z", methodCache: &Process.isAlive_MethodID_8, args: &__args, locals: &__locals )
+        return __return != jboolean(JNI_FALSE)
+    }
+
+
+    /// public boolean java.lang.Process.waitFor(long,java.util.concurrent.TimeUnit) throws java.lang.InterruptedException
+
+    private static var waitFor_MethodID_9: jmethodID?
+
+    open func waitFor( timeout: Int64, unit: /* class java.util.concurrent.TimeUnit */ UnavailableEnum? ) throws /* java.lang.InterruptedException */ -> Bool {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 2 )
+        __args[0] = jvalue( j: timeout )
+        __args[1] = JNIType.toJava( value: unit, locals: &__locals )
+        let __return = JNIMethod.CallBooleanMethod( object: javaObject, methodName: "waitFor", methodSig: "(JLjava/util/concurrent/TimeUnit;)Z", methodCache: &Process.waitFor_MethodID_9, args: &__args, locals: &__locals )
+        if let throwable = JNI.ExceptionCheck() {
+            defer { JNI.DeleteLocalRef( throwable ) }
+            throw InterruptedException( javaObject: throwable )
+        }
+        return __return != jboolean(JNI_FALSE)
+    }
+
+    open func waitFor( _ _timeout: Int64, _ _unit: /* class java.util.concurrent.TimeUnit */ UnavailableEnum? ) throws /* java.lang.InterruptedException */ -> Bool {
+        return try waitFor( timeout: _timeout, unit: _unit )
+    }
+
+    /// public abstract int java.lang.Process.waitFor() throws java.lang.InterruptedException
+
+    private static var waitFor_MethodID_10: jmethodID?
+
+    open func waitFor() throws /* java.lang.InterruptedException */ -> Int {
+        var __locals = [jobject]()
+        var __args = [jvalue]( repeating: jvalue(), count: 1 )
+        let __return = JNIMethod.CallIntMethod( object: javaObject, methodName: "waitFor", methodSig: "()I", methodCache: &Process.waitFor_MethodID_10, args: &__args, locals: &__locals )
+        if let throwable = JNI.ExceptionCheck() {
+            defer { JNI.DeleteLocalRef( throwable ) }
+            throw InterruptedException( javaObject: throwable )
+        }
+        return Int(__return)
+    }
+
+
 }
 
