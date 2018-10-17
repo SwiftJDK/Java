@@ -13,4 +13,4 @@ import Foundation
  Applications that override the clone method can also throw this exception to indicate that an object could not or should not be cloned.
  
  */
-open class JavaLangCloneNotSupportedException: JavaException { }
+open class JavaLangCloneNotSupportedException: JavaLangException { }

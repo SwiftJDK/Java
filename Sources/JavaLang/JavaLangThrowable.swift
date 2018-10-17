@@ -10,15 +10,15 @@
  
  Only objects that are instances of this class (or one of its subclasses) are thrown by the Java Virtual Machine or can be thrown by the Java throw statement. Similarly, only this class or one of its subclasses can be the argument type in a catch clause. For the purposes of compile-time checking of exceptions, Throwable and any subclass of Throwable that is not also a subclass of either RuntimeException or Error are regarded as checked exceptions.
  */
-open class JavaThrowable: JavaObject, Swift.Error {
+open class JavaLangThrowable: JavaLangObject, Swift.Error {
     
     private static let serialVersionUID: Int = -3042686055658047285;
     
     private var detailMessage: String?
     
-    private var cause: JavaThrowable?
+    private var cause: JavaLangThrowable?
     
-    private var suppressedExceptions: [JavaThrowable] = []
+    private var suppressedExceptions: [JavaLangThrowable] = []
     
     public override init() {
         
@@ -33,7 +33,7 @@ open class JavaThrowable: JavaObject, Swift.Error {
         self.detailMessage = message
     }
     
-    public init(message: String, cause: JavaThrowable?) {
+    public init(message: String, cause: JavaLangThrowable?) {
         
         super.init()
         self.fillInStackTrace()
@@ -41,7 +41,7 @@ open class JavaThrowable: JavaObject, Swift.Error {
         self.cause = cause
     }
     
-    public init(cause: JavaThrowable?) {
+    public init(cause: JavaLangThrowable?) {
         
         super.init()
         self.fillInStackTrace()
@@ -51,11 +51,11 @@ open class JavaThrowable: JavaObject, Swift.Error {
     
     func fillInStackTrace() {
         
-        
+        // TODO: Stack Trace
     }
 }
 
-private extension JavaThrowable {
+private extension JavaLangThrowable {
     
     /** Message for trying to suppress a null exception. */
     private static let NULL_CAUSE_MESSAGE: String = "Cannot suppress a null exception."

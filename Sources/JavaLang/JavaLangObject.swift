@@ -12,7 +12,12 @@ import Foundation
  
  - SeeAlso: [java.lang.object](https://developer.android.com/reference/java/lang/Object)
  */
-open class JavaObject {
+open class JavaLangObject {
+    
+    deinit {
+        
+        finalize()
+    }
     
     public init() { }
     
@@ -76,12 +81,12 @@ open class JavaObject {
      *               be cloned.
      * @see java.lang.Cloneable
      */
-    open func clone() throws -> JavaObject {
+    public final func clone() throws -> JavaLangObject {
         
-        guard let cloneable = self as? Cloneable else {
+        guard let cloneable = self as? JavaLangCloneable else {
             
             // "Class " + getClass().getName() + " doesn't implement Cloneable"
-            throw CloneNotSupportedException(message: "Class \(type(of: self)) doesn't implement Cloneable")
+            throw JavaLangCloneNotSupportedException(message: "Class \(type(of: self)) doesn't implement Cloneable")
         }
         
         // Dalvik VM just copies memory, Swift should statically implement this.
@@ -90,7 +95,7 @@ open class JavaObject {
     }
     
     /// public boolean java.lang.Object.equals(java.lang.Object)
-    open func equals(_ other: JavaObject) throws -> Bool {
+    open func equals(_ other: JavaLangObject) throws -> Bool {
         
         return self === other
     }
@@ -127,7 +132,6 @@ open class JavaObject {
         return "\(type(of: self))" + "@" + hashCode().description
     }
     
-    /*
     /**
      Invoked when the garbage collector has detected that this instance is no longer reachable.
      
@@ -136,7 +140,7 @@ open class JavaObject {
     open func finalize() {
         
         
-    }*/
+    }
     
     /**
      * Wakes up a single thread that is waiting on this object's
@@ -170,7 +174,42 @@ open class JavaObject {
      * @see        java.lang.Object#notifyAll()
      * @see        java.lang.Object#wait()
      */
-    open func notify() throws {
+    public final func notify() throws {
+        
+        fatalError("Not implemented")
+    }
+    
+    /**
+     * Wakes up all threads that are waiting on this object's monitor. A
+     * thread waits on an object's monitor by calling one of the
+     * {@code wait} methods.
+     * <p>
+     * The awakened threads will not be able to proceed until the current
+     * thread relinquishes the lock on this object. The awakened threads
+     * will compete in the usual manner with any other threads that might
+     * be actively competing to synchronize on this object; for example,
+     * the awakened threads enjoy no reliable privilege or disadvantage in
+     * being the next thread to lock this object.
+     * <p>
+     * This method should only be called by a thread that is the owner
+     * of this object's monitor. See the {@code notify} method for a
+     * description of the ways in which a thread can become the owner of
+     * a monitor.
+     *
+     * @throws  IllegalMonitorStateException  if the current thread is not
+     *               the owner of this object's monitor.
+     * @see        java.lang.Object#notify()
+     * @see        java.lang.Object#wait()
+     */
+    //@FastNative
+    //public final native void notifyAll();
+    public final func notifyAll() throws {
+        
+        fatalError("Not implemented")
+    }
+    
+    // public final native void wait(long timeout, int nanos) throws InterruptedException;
+    public final func wait(timeout: CLong, nanoseconds: CInt) throws {
         
         fatalError("Not implemented")
     }

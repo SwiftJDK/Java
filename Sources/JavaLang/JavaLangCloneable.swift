@@ -26,10 +26,10 @@
  * reflectively, there is no guarantee that it will succeed.
  *
  */
-public protocol Cloneable: class {
+public protocol JavaLangCloneable: class {
     
     /// Swift ONLY!
     ///
     /// Asks the Swift Java Runtime to clone the object.
-    func javaClone() -> JavaObject
+    func javaClone() -> JavaLangObject
 }
